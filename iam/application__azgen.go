@@ -890,7 +890,6 @@ type ApplicationService interface {
 
 	ApplicationIDService
 	ApplicationInstanceService
-	ApplicationInstanceStateService
 }
 
 // ApplicationServiceClient is the interface for

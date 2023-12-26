@@ -653,7 +653,6 @@ type UserService interface {
 
 	UserIDService
 	UserInstanceService
-	UserInstanceStateService
 }
 
 // UserServiceClient is the interface for
