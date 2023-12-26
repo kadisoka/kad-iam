@@ -107,12 +107,6 @@ func (authz Authorization) UserID() UserID {
 	return authz.SessionID.terminal.user
 }
 
-// UserIDPtr returns a pointer to a new copy of user ref-key. The
-// returned value is non-nil when the user ref-key is valid.
-func (authz Authorization) UserIDPtr() *UserID {
-	return authz.SessionID.terminal.UserPtr()
-}
-
 func (authz Authorization) TerminalID() TerminalID {
 	return authz.SessionID.terminal
 }
