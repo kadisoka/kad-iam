@@ -53,10 +53,9 @@ var _ azcore.EntityID[UserIDNum] = _UserIDZero
 var _ azcore.ValueObjectAssert[UserID] = _UserIDZero
 var _ azcore.UserID[UserIDNum] = _UserIDZero
 
-const _UserIDZero =
-	UserID(UserIDNumZero)
-var _UserIDZeroVar =
-	_UserIDZero
+const _UserIDZero = UserID(UserIDNumZero)
+
+var _UserIDZeroVar = _UserIDZero
 
 // UserIDZero returns
 // a zero-valued instance of UserID.
@@ -141,7 +140,7 @@ func (id UserID) EqualsUserID(
 }
 
 func (id UserID) AZIDBin() []byte {
-	b := make([]byte, 8 + 1)
+	b := make([]byte, 8+1)
 	b[0] = UserIDNumBinDataType.Byte()
 	binary.BigEndian.PutUint64(b[1:], uint64(id))
 	return b
@@ -319,18 +318,15 @@ var _ azcore.UserIDNumMethods = UserIDNumZero
 
 // UserIDNumIdentifierBitsMask is used to
 // extract identifier bits from an instance of UserIDNum.
-const UserIDNumIdentifierBitsMask uint64 =
-	0b_00000000_00000000_11111111_11111111_11111111_11111111_11111111_11111111
+const UserIDNumIdentifierBitsMask uint64 = 0b_00000000_00000000_11111111_11111111_11111111_11111111_11111111_11111111
 
 // UserIDNumZero is the zero value
 // for UserIDNum.
-const UserIDNumZero =
-	UserIDNum(0)
+const UserIDNumZero = UserIDNum(0)
 
 // _UserIDNumZeroVar is used for testing
 // pointer-based interfaces conformance.
-var _UserIDNumZeroVar =
-	UserIDNumZero
+var _UserIDNumZeroVar = UserIDNumZero
 
 // UserIDNumFromPrimitiveValue creates an instance
 // of UserIDNum from its primitive value.
@@ -384,7 +380,7 @@ func (idNum UserIDNum) IsZero() bool {
 // valid, but it's considered invalid because it's a fake.
 func (idNum UserIDNum) IsStaticallyValid() bool {
 	return int64(idNum) > 0 &&
-		(uint64(idNum) & UserIDNumIdentifierBitsMask) != 0
+		(uint64(idNum)&UserIDNumIdentifierBitsMask) != 0
 }
 
 // IsNotStaticallyValid returns the negation of value returned by IsStaticallyValid.
@@ -444,7 +440,6 @@ func (idNum *UserIDNum) UnmarshalAZIDBinField(
 const (
 	UserIDNumEmbeddedFieldsMask = 0b_01000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-
 	UserIDNumBotMask = 0b_01000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 	UserIDNumBotBits = 0b_01000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 )
@@ -475,23 +470,20 @@ func (idNum UserIDNum) HasBotBits() bool {
 // entity's built-in attributes.
 type UserAttrSet struct {
 	// AZxEntityAttrSetBase
-	
+
 }
 
 // NewUserAttrSet returns a new instance
 // of UserAttrSet with the provided attribute values.
-func NewUserAttrSet(
-) UserAttrSet {
-	return UserAttrSet{
-	}
+func NewUserAttrSet() UserAttrSet {
+	return UserAttrSet{}
 }
 
 var _ azcore.ValueObjectAssert[UserAttrSet] = UserAttrSet{}
 
 // Clone returns a copy of UserAttrSet
 func (attrs UserAttrSet) Clone() UserAttrSet {
-	return UserAttrSet{
-	}
+	return UserAttrSet{}
 }
 
 func (attrs UserAttrSet) Equals(
@@ -526,7 +518,7 @@ type UserInstanceService interface {
 // provides access to instances metadata.
 type UserInstanceStateService interface {
 	// GetUserInstanceState checks if the provided
-    // ref-key is valid and whether the instance is deleted.
+	// ref-key is valid and whether the instance is deleted.
 	//
 	// This method returns nil if the id is not referencing to any valid
 	// instance.
@@ -539,19 +531,17 @@ type UserInstanceStateService interface {
 // UserInstanceState holds information about
 // an instance of User.
 type UserInstanceState struct {
-    RevisionNumber_ int32
+	RevisionNumber_ int32
 
-    // Deletion_ holds information about the deletion of the instance. If
-    // the instance has not been deleted, this field value will be nil.
+	// Deletion_ holds information about the deletion of the instance. If
+	// the instance has not been deleted, this field value will be nil.
 	Deletion_ *UserDeletionState
 }
 
 var _ azcore.EntityInstanceInfo[
 	int32, UserDeletionState,
 ] = UserInstanceState{}
-var _ azcore.ValueObjectAssert[
-	UserDeletionState,
-] = UserDeletionState{}
+var _ azcore.ValueObjectAssert[UserDeletionState] = UserDeletionState{}
 
 // UserInstanceStateZero returns an instance of
 // UserInstanceState with attributes set their respective zero
@@ -578,9 +568,9 @@ func (instInfo UserInstanceState) Deletion() *UserDeletionState {
 
 // IsActive returns true if the instance is considered as active.
 func (instInfo UserInstanceState) IsActive() bool {
-    // Note: we will check other flags in the future, but that's said,
-    // deleted instance is considered inactive.
-    return !instInfo.IsDeleted()
+	// Note: we will check other flags in the future, but that's said,
+	// deleted instance is considered inactive.
+	return !instInfo.IsDeleted()
 }
 
 // IsDeleted returns true if the instance was deleted.
@@ -601,9 +591,7 @@ type UserDeletionState struct {
 }
 
 var _ azcore.EntityDeletionInfo = UserDeletionState{}
-var _ azcore.ValueObjectAssert[
-	UserDeletionState,
-] = UserDeletionState{}
+var _ azcore.ValueObjectAssert[UserDeletionState] = UserDeletionState{}
 
 func (instDelInfo UserDeletionState) Clone() UserDeletionState {
 	// Already a copy and there's no shared underlying data instance
@@ -627,7 +615,7 @@ type UserInstanceServiceInternal interface {
 	CreateUserInternal(
 		ctx context.Context,
 		input UserCreationParams,
-	) (id UserID, initialState UserInstanceState, err error);
+	) (id UserID, initialState UserInstanceState, err error)
 
 	// DeleteUserInternal deletes an instance of
 	// User entity based identfied by idOfInstToDel.
@@ -663,7 +651,9 @@ type UserDeletionParams struct {
 type UserService interface {
 	// AZxEntityService
 
+	UserIDService
 	UserInstanceService
+	UserInstanceStateService
 }
 
 // UserServiceClient is the interface for

@@ -59,10 +59,9 @@ var _ azid.TextUnmarshalable = &_ApplicationIDZeroVar
 var _ azcore.EntityID[ApplicationIDNum] = _ApplicationIDZero
 var _ azcore.ValueObjectAssert[ApplicationID] = _ApplicationIDZero
 
-const _ApplicationIDZero =
-	ApplicationID(ApplicationIDNumZero)
-var _ApplicationIDZeroVar =
-	_ApplicationIDZero
+const _ApplicationIDZero = ApplicationID(ApplicationIDNumZero)
+
+var _ApplicationIDZeroVar = _ApplicationIDZero
 
 // ApplicationIDZero returns
 // a zero-valued instance of ApplicationID.
@@ -141,7 +140,7 @@ func (id ApplicationID) EqualsApplicationID(
 }
 
 func (id ApplicationID) AZIDBin() []byte {
-	b := make([]byte, 4 + 1)
+	b := make([]byte, 4+1)
 	b[0] = ApplicationIDNumBinDataType.Byte()
 	binary.BigEndian.PutUint32(b[1:], uint32(id))
 	return b
@@ -318,18 +317,15 @@ var _ azcore.ValueObjectAssert[ApplicationIDNum] = ApplicationIDNumZero
 
 // ApplicationIDNumIdentifierBitsMask is used to
 // extract identifier bits from an instance of ApplicationIDNum.
-const ApplicationIDNumIdentifierBitsMask uint32 =
-	0b_00000011_11111111_11111111_11111111
+const ApplicationIDNumIdentifierBitsMask uint32 = 0b_00000011_11111111_11111111_11111111
 
 // ApplicationIDNumZero is the zero value
 // for ApplicationIDNum.
-const ApplicationIDNumZero =
-	ApplicationIDNum(0)
+const ApplicationIDNumZero = ApplicationIDNum(0)
 
 // _ApplicationIDNumZeroVar is used for testing
 // pointer-based interfaces conformance.
-var _ApplicationIDNumZeroVar =
-	ApplicationIDNumZero
+var _ApplicationIDNumZeroVar = ApplicationIDNumZero
 
 // ApplicationIDNumFromPrimitiveValue creates an instance
 // of ApplicationIDNum from its primitive value.
@@ -383,7 +379,7 @@ func (idNum ApplicationIDNum) IsZero() bool {
 // valid, but it's considered invalid because it's a fake.
 func (idNum ApplicationIDNum) IsStaticallyValid() bool {
 	return int32(idNum) > 0 &&
-		(uint32(idNum) & ApplicationIDNumIdentifierBitsMask) != 0
+		(uint32(idNum)&ApplicationIDNumIdentifierBitsMask) != 0
 }
 
 // IsNotStaticallyValid returns the negation of value returned by IsStaticallyValid.
@@ -443,15 +439,14 @@ func (idNum *ApplicationIDNum) UnmarshalAZIDBinField(
 const (
 	ApplicationIDNumEmbeddedFieldsMask = 0b_01110000_00000000_00000000_00000000
 
-
-	ApplicationIDNumFirstPartyMask = 0b_01000000_00000000_00000000_00000000
-	ApplicationIDNumFirstPartyBits = 0b_01000000_00000000_00000000_00000000
-	ApplicationIDNumServiceMask = 0b_00100000_00000000_00000000_00000000
-	ApplicationIDNumServiceBits = 0b_00000000_00000000_00000000_00000000
-	ApplicationIDNumUserAgentMask = 0b_00100000_00000000_00000000_00000000
-	ApplicationIDNumUserAgentBits = 0b_00100000_00000000_00000000_00000000
-	ApplicationIDNumUserAgentAuthorizationPublicMask = 0b_00110000_00000000_00000000_00000000
-	ApplicationIDNumUserAgentAuthorizationPublicBits = 0b_00100000_00000000_00000000_00000000
+	ApplicationIDNumFirstPartyMask                         = 0b_01000000_00000000_00000000_00000000
+	ApplicationIDNumFirstPartyBits                         = 0b_01000000_00000000_00000000_00000000
+	ApplicationIDNumServiceMask                            = 0b_00100000_00000000_00000000_00000000
+	ApplicationIDNumServiceBits                            = 0b_00000000_00000000_00000000_00000000
+	ApplicationIDNumUserAgentMask                          = 0b_00100000_00000000_00000000_00000000
+	ApplicationIDNumUserAgentBits                          = 0b_00100000_00000000_00000000_00000000
+	ApplicationIDNumUserAgentAuthorizationPublicMask       = 0b_00110000_00000000_00000000_00000000
+	ApplicationIDNumUserAgentAuthorizationPublicBits       = 0b_00100000_00000000_00000000_00000000
 	ApplicationIDNumUserAgentAuthorizationConfidentialMask = 0b_00110000_00000000_00000000_00000000
 	ApplicationIDNumUserAgentAuthorizationConfidentialBits = 0b_00110000_00000000_00000000_00000000
 )
@@ -589,11 +584,11 @@ func (idNum ApplicationIDNum) HasUserAgentAuthorizationConfidentialBits() bool {
 // entity's built-in attributes.
 type ApplicationAttrSet struct {
 	// AZxEntityAttrSetBase
-	
-	displayName string
-	secret string
-	platformType string
-	requiredScopes []string
+
+	displayName       string
+	secret            string
+	platformType      string
+	requiredScopes    []string
 	oAuth2RedirectURI []string
 }
 
@@ -607,10 +602,10 @@ func NewApplicationAttrSet(
 	oAuth2RedirectURI []string,
 ) ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: displayName,
-		secret: secret,
-		platformType: platformType,
-		requiredScopes: slices.Clone(requiredScopes),
+		displayName:       displayName,
+		secret:            secret,
+		platformType:      platformType,
+		requiredScopes:    slices.Clone(requiredScopes),
 		oAuth2RedirectURI: slices.Clone(oAuth2RedirectURI),
 	}
 }
@@ -620,10 +615,10 @@ var _ azcore.ValueObjectAssert[ApplicationAttrSet] = ApplicationAttrSet{}
 // Clone returns a copy of ApplicationAttrSet
 func (attrs ApplicationAttrSet) Clone() ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: attrs.displayName,
-		secret: attrs.secret,
-		platformType: attrs.platformType,
-		requiredScopes: slices.Clone(attrs.requiredScopes),
+		displayName:       attrs.displayName,
+		secret:            attrs.secret,
+		platformType:      attrs.platformType,
+		requiredScopes:    slices.Clone(attrs.requiredScopes),
 		oAuth2RedirectURI: slices.Clone(attrs.oAuth2RedirectURI),
 	}
 }
@@ -640,10 +635,10 @@ func (attrs ApplicationAttrSet) WithDisplayName(
 	displayName string,
 ) ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: displayName,
-		secret: attrs.secret,
-		platformType: attrs.platformType,
-		requiredScopes: slices.Clone(attrs.requiredScopes),
+		displayName:       displayName,
+		secret:            attrs.secret,
+		platformType:      attrs.platformType,
+		requiredScopes:    slices.Clone(attrs.requiredScopes),
 		oAuth2RedirectURI: slices.Clone(attrs.oAuth2RedirectURI),
 	}
 }
@@ -660,10 +655,10 @@ func (attrs ApplicationAttrSet) WithSecret(
 	secret string,
 ) ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: attrs.displayName,
-		secret: secret,
-		platformType: attrs.platformType,
-		requiredScopes: slices.Clone(attrs.requiredScopes),
+		displayName:       attrs.displayName,
+		secret:            secret,
+		platformType:      attrs.platformType,
+		requiredScopes:    slices.Clone(attrs.requiredScopes),
 		oAuth2RedirectURI: slices.Clone(attrs.oAuth2RedirectURI),
 	}
 }
@@ -680,10 +675,10 @@ func (attrs ApplicationAttrSet) WithPlatformType(
 	platformType string,
 ) ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: attrs.displayName,
-		secret: attrs.secret,
-		platformType: platformType,
-		requiredScopes: slices.Clone(attrs.requiredScopes),
+		displayName:       attrs.displayName,
+		secret:            attrs.secret,
+		platformType:      platformType,
+		requiredScopes:    slices.Clone(attrs.requiredScopes),
 		oAuth2RedirectURI: slices.Clone(attrs.oAuth2RedirectURI),
 	}
 }
@@ -700,10 +695,10 @@ func (attrs ApplicationAttrSet) WithRequiredScopes(
 	requiredScopes []string,
 ) ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: attrs.displayName,
-		secret: attrs.secret,
-		platformType: attrs.platformType,
-		requiredScopes: slices.Clone(requiredScopes),
+		displayName:       attrs.displayName,
+		secret:            attrs.secret,
+		platformType:      attrs.platformType,
+		requiredScopes:    slices.Clone(requiredScopes),
 		oAuth2RedirectURI: slices.Clone(attrs.oAuth2RedirectURI),
 	}
 }
@@ -720,10 +715,10 @@ func (attrs ApplicationAttrSet) WithOAuth2RedirectURI(
 	oAuth2RedirectURI []string,
 ) ApplicationAttrSet {
 	return ApplicationAttrSet{
-		displayName: attrs.displayName,
-		secret: attrs.secret,
-		platformType: attrs.platformType,
-		requiredScopes: slices.Clone(attrs.requiredScopes),
+		displayName:       attrs.displayName,
+		secret:            attrs.secret,
+		platformType:      attrs.platformType,
+		requiredScopes:    slices.Clone(attrs.requiredScopes),
 		oAuth2RedirectURI: slices.Clone(oAuth2RedirectURI),
 	}
 }
@@ -765,7 +760,7 @@ type ApplicationInstanceService interface {
 // provides access to instances metadata.
 type ApplicationInstanceStateService interface {
 	// GetApplicationInstanceState checks if the provided
-    // ref-key is valid and whether the instance is deleted.
+	// ref-key is valid and whether the instance is deleted.
 	//
 	// This method returns nil if the id is not referencing to any valid
 	// instance.
@@ -778,19 +773,17 @@ type ApplicationInstanceStateService interface {
 // ApplicationInstanceState holds information about
 // an instance of Application.
 type ApplicationInstanceState struct {
-    RevisionNumber_ int32
+	RevisionNumber_ int32
 
-    // Deletion_ holds information about the deletion of the instance. If
-    // the instance has not been deleted, this field value will be nil.
+	// Deletion_ holds information about the deletion of the instance. If
+	// the instance has not been deleted, this field value will be nil.
 	Deletion_ *ApplicationDeletionState
 }
 
 var _ azcore.EntityInstanceInfo[
 	int32, ApplicationDeletionState,
 ] = ApplicationInstanceState{}
-var _ azcore.ValueObjectAssert[
-	ApplicationDeletionState,
-] = ApplicationDeletionState{}
+var _ azcore.ValueObjectAssert[ApplicationDeletionState] = ApplicationDeletionState{}
 
 // ApplicationInstanceStateZero returns an instance of
 // ApplicationInstanceState with attributes set their respective zero
@@ -817,9 +810,9 @@ func (instInfo ApplicationInstanceState) Deletion() *ApplicationDeletionState {
 
 // IsActive returns true if the instance is considered as active.
 func (instInfo ApplicationInstanceState) IsActive() bool {
-    // Note: we will check other flags in the future, but that's said,
-    // deleted instance is considered inactive.
-    return !instInfo.IsDeleted()
+	// Note: we will check other flags in the future, but that's said,
+	// deleted instance is considered inactive.
+	return !instInfo.IsDeleted()
 }
 
 // IsDeleted returns true if the instance was deleted.
@@ -835,13 +828,11 @@ func (instInfo ApplicationInstanceState) IsDeleted() bool {
 // ApplicationDeletionState holds information about
 // the deletion of an instance if the instance has been deleted.
 type ApplicationDeletionState struct {
-	Deleted_       bool
+	Deleted_ bool
 }
 
 var _ azcore.EntityDeletionInfo = ApplicationDeletionState{}
-var _ azcore.ValueObjectAssert[
-	ApplicationDeletionState,
-] = ApplicationDeletionState{}
+var _ azcore.ValueObjectAssert[ApplicationDeletionState] = ApplicationDeletionState{}
 
 func (instDelInfo ApplicationDeletionState) Clone() ApplicationDeletionState {
 	// Already a copy and there's no shared underlying data instance
@@ -862,7 +853,7 @@ type ApplicationInstanceServiceInternal interface {
 	CreateApplicationInternal(
 		ctx context.Context,
 		input ApplicationCreationParams,
-	) (id ApplicationID, initialState ApplicationInstanceState, err error);
+	) (id ApplicationID, initialState ApplicationInstanceState, err error)
 
 	// DeleteApplicationInternal deletes an instance of
 	// Application entity based identfied by idOfInstToDel.
@@ -897,7 +888,9 @@ type ApplicationDeletionParams struct {
 type ApplicationService interface {
 	// AZxEntityService
 
+	ApplicationIDService
 	ApplicationInstanceService
+	ApplicationInstanceStateService
 }
 
 // ApplicationServiceClient is the interface for

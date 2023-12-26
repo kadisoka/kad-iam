@@ -55,8 +55,8 @@ var _ = strings.Compare
 // an instance of adjunct entity Terminal system-wide.
 type TerminalID struct {
 	application ApplicationID
-	user UserID
-	idNum TerminalIDNum // Differentiator
+	user        UserID
+	idNum       TerminalIDNum // Differentiator
 }
 
 // The total number of fields in the struct.
@@ -71,8 +71,8 @@ func NewTerminalID(
 ) TerminalID {
 	return TerminalID{
 		application: application,
-		user: user,
-		idNum: idNum,
+		user:        user,
+		idNum:       idNum,
 	}
 }
 
@@ -87,8 +87,8 @@ var _ azcore.TerminalID[TerminalIDNum] = _TerminalIDZero
 
 var _TerminalIDZero = TerminalID{
 	application: ApplicationIDZero(),
-	user: UserIDZero(),
-	idNum: TerminalIDNumZero,
+	user:        UserIDZero(),
+	idNum:       TerminalIDNumZero,
 }
 
 // TerminalIDZero returns
@@ -297,8 +297,8 @@ func TerminalIDFromAZIDBinField(
 
 	return TerminalID{
 		application: applicationID,
-		user: userID,
-		idNum: idNum,
+		user:        userID,
+		idNum:       idNum,
 	}, dataCursor, nil
 }
 
@@ -418,8 +418,8 @@ func (id TerminalID) WithApplication(
 ) TerminalID {
 	return TerminalID{
 		application: application,
-		user: id.user,
-		idNum: id.idNum,
+		user:        id.user,
+		idNum:       id.idNum,
 	}
 }
 
@@ -446,8 +446,8 @@ func (id TerminalID) WithUser(
 ) TerminalID {
 	return TerminalID{
 		application: id.application,
-		user: user,
-		idNum: id.idNum,
+		user:        user,
+		idNum:       id.idNum,
 	}
 }
 
@@ -474,17 +474,14 @@ var _ azcore.TerminalIDNumMethods = TerminalIDNumZero
 
 // TerminalIDNumIdentifierBitsMask is used to
 // extract identifier bits from an instance of TerminalIDNum.
-const TerminalIDNumIdentifierBitsMask uint64 =
-	0b_00000000_11111111_11111111_11111111_11111111_11111111_11111111_11111111
+const TerminalIDNumIdentifierBitsMask uint64 = 0b_00000000_11111111_11111111_11111111_11111111_11111111_11111111_11111111
 
 // TerminalIDNumZero is the zero value for TerminalIDNum.
-const TerminalIDNumZero =
-	TerminalIDNum(0)
+const TerminalIDNumZero = TerminalIDNum(0)
 
 // _TerminalIDNumZeroVar is used for testing
 // pointer-based interfaces conformance.
-var _TerminalIDNumZeroVar =
-	TerminalIDNumZero
+var _TerminalIDNumZeroVar = TerminalIDNumZero
 
 // TerminalIDNumFromPrimitiveValue creates an instance
 // of TerminalIDNum from its primitive value.
@@ -524,7 +521,7 @@ func (idNum TerminalIDNum) IsZero() bool {
 // a valid instance of Terminal.
 func (idNum TerminalIDNum) IsStaticallyValid() bool {
 	return int64(idNum) > 0 &&
-		(uint64(idNum) & TerminalIDNumIdentifierBitsMask) != 0
+		(uint64(idNum)&TerminalIDNumIdentifierBitsMask) != 0
 }
 
 // IsNotStaticallyValid returns the negation of value returned by IsStaticallyValid.
@@ -583,8 +580,6 @@ func (idNum *TerminalIDNum) UnmarshalAZIDBinField(
 // Embedded fields
 const (
 	TerminalIDNumEmbeddedFieldsMask = 0b_00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
-
-
 )
 
 //endregion
@@ -595,9 +590,9 @@ const (
 // attributes for adjunct Terminal.
 type TerminalAttributes struct {
 	// AZxAdjunctEntityAttrSetBase
-	
-	secret string
-	displayName string
+
+	secret         string
+	displayName    string
 	acceptLanguage string
 }
 
@@ -609,8 +604,8 @@ func NewTerminalAttributes(
 	acceptLanguage string,
 ) TerminalAttributes {
 	return TerminalAttributes{
-		secret: secret,
-		displayName: displayName,
+		secret:         secret,
+		displayName:    displayName,
 		acceptLanguage: acceptLanguage,
 	}
 }
@@ -620,8 +615,8 @@ var _ azcore.ValueObjectAssert[TerminalAttributes] = TerminalAttributes{}
 // Clone returns a copy of TerminalAttributes
 func (attrs TerminalAttributes) Clone() TerminalAttributes {
 	return TerminalAttributes{
-		secret: attrs.secret,
-		displayName: attrs.displayName,
+		secret:         attrs.secret,
+		displayName:    attrs.displayName,
 		acceptLanguage: attrs.acceptLanguage,
 	}
 }
@@ -638,8 +633,8 @@ func (attrs TerminalAttributes) WithSecret(
 	secret string,
 ) TerminalAttributes {
 	return TerminalAttributes{
-		secret: secret,
-		displayName: attrs.displayName,
+		secret:         secret,
+		displayName:    attrs.displayName,
 		acceptLanguage: attrs.acceptLanguage,
 	}
 }
@@ -656,8 +651,8 @@ func (attrs TerminalAttributes) WithDisplayName(
 	displayName string,
 ) TerminalAttributes {
 	return TerminalAttributes{
-		secret: attrs.secret,
-		displayName: displayName,
+		secret:         attrs.secret,
+		displayName:    displayName,
 		acceptLanguage: attrs.acceptLanguage,
 	}
 }
@@ -674,8 +669,8 @@ func (attrs TerminalAttributes) WithAcceptLanguage(
 	acceptLanguage string,
 ) TerminalAttributes {
 	return TerminalAttributes{
-		secret: attrs.secret,
-		displayName: attrs.displayName,
+		secret:         attrs.secret,
+		displayName:    attrs.displayName,
 		acceptLanguage: acceptLanguage,
 	}
 }
@@ -715,7 +710,7 @@ type TerminalInstanceService interface {
 // provides access to instances metadata.
 type TerminalInstanceStateService interface {
 	// GetTerminalInstanceState checks if the provided
-    // ref-key is valid and whether the instance is deleted.
+	// ref-key is valid and whether the instance is deleted.
 	//
 	// This method returns nil if the id is not referencing to any valid
 	// instance.
@@ -728,19 +723,17 @@ type TerminalInstanceStateService interface {
 // TerminalInstanceState holds information about
 // an instance of Terminal.
 type TerminalInstanceState struct {
-    RevisionNumber_ int32
+	RevisionNumber_ int32
 
-    // Deletion_ holds information about the deletion of the instance. If
-    // the instance has not been deleted, this field value will be nil.
+	// Deletion_ holds information about the deletion of the instance. If
+	// the instance has not been deleted, this field value will be nil.
 	Deletion_ *TerminalDeletionState
 }
 
 var _ azcore.EntityInstanceInfo[
 	int32, TerminalDeletionState,
 ] = TerminalInstanceState{}
-var _ azcore.ValueObjectAssert[
-	TerminalDeletionState,
-] = TerminalDeletionState{}
+var _ azcore.ValueObjectAssert[TerminalDeletionState] = TerminalDeletionState{}
 
 // TerminalInstanceStateZero returns an instance of
 // TerminalInstanceState with attributes set their respective zero
@@ -767,9 +760,9 @@ func (instInfo TerminalInstanceState) Deletion() *TerminalDeletionState {
 
 // IsActive returns true if the instance is considered as active.
 func (instInfo TerminalInstanceState) IsActive() bool {
-    // Note: we will check other flags in the future, but that's said,
-    // deleted instance is considered inactive.
-    return !instInfo.IsDeleted()
+	// Note: we will check other flags in the future, but that's said,
+	// deleted instance is considered inactive.
+	return !instInfo.IsDeleted()
 }
 
 // IsDeleted returns true if the instance was deleted.
@@ -785,13 +778,11 @@ func (instInfo TerminalInstanceState) IsDeleted() bool {
 // TerminalDeletionState holds information about
 // the deletion of an instance if the instance has been deleted.
 type TerminalDeletionState struct {
-	Deleted_       bool
+	Deleted_ bool
 }
 
 var _ azcore.EntityDeletionInfo = TerminalDeletionState{}
-var _ azcore.ValueObjectAssert[
-	TerminalDeletionState,
-] = TerminalDeletionState{}
+var _ azcore.ValueObjectAssert[TerminalDeletionState] = TerminalDeletionState{}
 
 func (instDelInfo TerminalDeletionState) Clone() TerminalDeletionState {
 	// Already a copy and there's no shared underlying data instance

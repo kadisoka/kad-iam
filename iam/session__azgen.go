@@ -46,7 +46,7 @@ var _ = strings.Compare
 // an instance of adjunct entity Session system-wide.
 type SessionID struct {
 	terminal TerminalID
-	idNum SessionIDNum 
+	idNum    SessionIDNum
 }
 
 // The total number of fields in the struct.
@@ -56,11 +56,11 @@ const _SessionIDFieldCount = 1 + 1
 // of SessionID with the provided attribute values.
 func NewSessionID(
 	terminal TerminalID,
-	idNum SessionIDNum, 
+	idNum SessionIDNum,
 ) SessionID {
 	return SessionID{
 		terminal: terminal,
-		idNum: idNum,
+		idNum:    idNum,
 	}
 }
 
@@ -75,7 +75,7 @@ var _ azcore.SessionID[SessionIDNum] = _SessionIDZero
 
 var _SessionIDZero = SessionID{
 	terminal: TerminalIDZero(),
-	idNum: SessionIDNumZero,
+	idNum:    SessionIDNumZero,
 }
 
 // SessionIDZero returns
@@ -265,7 +265,7 @@ func SessionIDFromAZIDBinField(
 
 	return SessionID{
 		terminal: terminalID,
-		idNum: idNum,
+		idNum:    idNum,
 	}, dataCursor, nil
 }
 
@@ -385,7 +385,7 @@ func (id SessionID) WithTerminal(
 ) SessionID {
 	return SessionID{
 		terminal: terminal,
-		idNum: id.idNum,
+		idNum:    id.idNum,
 	}
 }
 
@@ -412,17 +412,14 @@ var _ azcore.SessionIDNumMethods = SessionIDNumZero
 
 // SessionIDNumIdentifierBitsMask is used to
 // extract identifier bits from an instance of SessionIDNum.
-const SessionIDNumIdentifierBitsMask uint32 =
-	0b_00000000_11111111_11111111_11111111
+const SessionIDNumIdentifierBitsMask uint32 = 0b_00000000_11111111_11111111_11111111
 
 // SessionIDNumZero is the zero value for SessionIDNum.
-const SessionIDNumZero =
-	SessionIDNum(0)
+const SessionIDNumZero = SessionIDNum(0)
 
 // _SessionIDNumZeroVar is used for testing
 // pointer-based interfaces conformance.
-var _SessionIDNumZeroVar =
-	SessionIDNumZero
+var _SessionIDNumZeroVar = SessionIDNumZero
 
 // SessionIDNumFromPrimitiveValue creates an instance
 // of SessionIDNum from its primitive value.
@@ -462,7 +459,7 @@ func (idNum SessionIDNum) IsZero() bool {
 // a valid instance of Session.
 func (idNum SessionIDNum) IsStaticallyValid() bool {
 	return int32(idNum) > 0 &&
-		(uint32(idNum) & SessionIDNumIdentifierBitsMask) != 0
+		(uint32(idNum)&SessionIDNumIdentifierBitsMask) != 0
 }
 
 // IsNotStaticallyValid returns the negation of value returned by IsStaticallyValid.
@@ -521,8 +518,6 @@ func (idNum *SessionIDNum) UnmarshalAZIDBinField(
 // Embedded fields
 const (
 	SessionIDNumEmbeddedFieldsMask = 0b_00000000_00000000_00000000_00000000
-
-
 )
 
 //endregion
@@ -533,23 +528,20 @@ const (
 // attributes for adjunct Session.
 type SessionAttributes struct {
 	// AZxAdjunctEntityAttrSetBase
-	
+
 }
 
 // NewSessionAttributes returns a new instance
 // of SessionAttributes with the provided attribute values.
-func NewSessionAttributes(
-) SessionAttributes {
-	return SessionAttributes{
-	}
+func NewSessionAttributes() SessionAttributes {
+	return SessionAttributes{}
 }
 
 var _ azcore.ValueObjectAssert[SessionAttributes] = SessionAttributes{}
 
 // Clone returns a copy of SessionAttributes
 func (attrs SessionAttributes) Clone() SessionAttributes {
-	return SessionAttributes{
-	}
+	return SessionAttributes{}
 }
 
 func (attrs SessionAttributes) Equals(
@@ -584,7 +576,7 @@ type SessionInstanceService interface {
 // provides access to instances metadata.
 type SessionInstanceStateService interface {
 	// GetSessionInstanceState checks if the provided
-    // ref-key is valid and whether the instance is deleted.
+	// ref-key is valid and whether the instance is deleted.
 	//
 	// This method returns nil if the id is not referencing to any valid
 	// instance.
@@ -597,19 +589,17 @@ type SessionInstanceStateService interface {
 // SessionInstanceState holds information about
 // an instance of Session.
 type SessionInstanceState struct {
-    RevisionNumber_ int32
+	RevisionNumber_ int32
 
-    // Deletion_ holds information about the deletion of the instance. If
-    // the instance has not been deleted, this field value will be nil.
+	// Deletion_ holds information about the deletion of the instance. If
+	// the instance has not been deleted, this field value will be nil.
 	Deletion_ *SessionDeletionState
 }
 
 var _ azcore.EntityInstanceInfo[
 	int32, SessionDeletionState,
 ] = SessionInstanceState{}
-var _ azcore.ValueObjectAssert[
-	SessionDeletionState,
-] = SessionDeletionState{}
+var _ azcore.ValueObjectAssert[SessionDeletionState] = SessionDeletionState{}
 
 // SessionInstanceStateZero returns an instance of
 // SessionInstanceState with attributes set their respective zero
@@ -636,9 +626,9 @@ func (instInfo SessionInstanceState) Deletion() *SessionDeletionState {
 
 // IsActive returns true if the instance is considered as active.
 func (instInfo SessionInstanceState) IsActive() bool {
-    // Note: we will check other flags in the future, but that's said,
-    // deleted instance is considered inactive.
-    return !instInfo.IsDeleted()
+	// Note: we will check other flags in the future, but that's said,
+	// deleted instance is considered inactive.
+	return !instInfo.IsDeleted()
 }
 
 // IsDeleted returns true if the instance was deleted.
@@ -654,13 +644,11 @@ func (instInfo SessionInstanceState) IsDeleted() bool {
 // SessionDeletionState holds information about
 // the deletion of an instance if the instance has been deleted.
 type SessionDeletionState struct {
-	Deleted_       bool
+	Deleted_ bool
 }
 
 var _ azcore.EntityDeletionInfo = SessionDeletionState{}
-var _ azcore.ValueObjectAssert[
-	SessionDeletionState,
-] = SessionDeletionState{}
+var _ azcore.ValueObjectAssert[SessionDeletionState] = SessionDeletionState{}
 
 func (instDelInfo SessionDeletionState) Clone() SessionDeletionState {
 	// Already a copy and there's no shared underlying data instance
