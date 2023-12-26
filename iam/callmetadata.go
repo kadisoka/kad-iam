@@ -32,10 +32,10 @@ func (md CallMetadata) Authorization() *Authorization {
 
 func (md CallMetadata) ReceiveTime() time.Time { return md.receiveTime }
 
-// CallMetadataOf extract CallMetadata from ctx.
+// CallMetadataOf extracts CallMetadata from ctx.
 //
 // It returns valid instance of CallMetadata if it exists. It returns nil
-// if no instance of CallMetadata existed or the CallMetadata is a nil. It
+// if no instance of CallMetadata existed or it exists but nil. It
 // returns an instance of CallMetadata which ContextError returns an error
 // if the value from the ctx is of unexpected type.
 func CallMetadataOf(ctx context.Context) *CallMetadata {
