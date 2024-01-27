@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/alloyzeus/go-azfl/v2 v2.0.0-20231226052010-801ca2a4c710
-	github.com/kadisoka/kad-volib v0.0.0-20231224111641-965e1d35929b
+	github.com/kadisoka/kad-volib v0.0.0-20240127071852-ca6d7e88d6d0
 	github.com/stretchr/testify v1.8.4
 )
 
