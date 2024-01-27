@@ -10,7 +10,7 @@ require (
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/nyaruka/phonenumbers v1.3.0 // indirect
+	github.com/nyaruka/phonenumbers v1.3.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rez-go/crock32 v0.0.0-20210224111353-8fde4331511d // indirect
 	golang.org/x/text v0.14.0 // indirect
